@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mealapp/data/dummy_data.dart';
 import 'package:mealapp/models/category.dart';
+import 'package:mealapp/models/meal.dart';
 import 'package:mealapp/screens/meals_screen.dart';
 
 class CategoryGridItem extends StatelessWidget {
-  const CategoryGridItem({super.key, required this.category});
+  const CategoryGridItem(
+      {super.key, required this.category, required this.onToggleFavorite});
   final Category category;
+  final void Function(Meal meal) onToggleFavorite;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -17,6 +20,7 @@ class CategoryGridItem extends StatelessWidget {
             builder: (ctx) => MealsScreen(
                   title: category.title,
                   meals: filteredMeal,
+                  onToggleFavorite: onToggleFavorite,
                 )));
       },
       splashColor: Theme.of(context).primaryColor,
@@ -32,7 +36,7 @@ class CategoryGridItem extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .titleLarge!
-                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                .copyWith(color: Theme.of(context).colorScheme.onSurface),
           )),
     );
   }
