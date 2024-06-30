@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:mealapp/data/dummy_data.dart';
-import 'package:mealapp/models/category.dart';
+import '../models/category.dart';
 import 'package:mealapp/models/meal.dart';
 import 'package:mealapp/screens/meals_screen.dart';
 
 class CategoryGridItem extends StatelessWidget {
   const CategoryGridItem(
-      {super.key, required this.category, required this.onToggleFavorite});
+      {super.key,
+      required this.category,
+      required this.onToggleFavorite,
+      required this.availabeMeals});
   final Category category;
   final void Function(Meal meal) onToggleFavorite;
+  final List<Meal> availabeMeals;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        final filteredMeal = dummyMeals
+        final filteredMeal = availabeMeals
             .where((meal) => meal.categories.contains(category.id))
             .toList(); // cuz it itrable i use tolist
         Navigator.of(context).push(MaterialPageRoute(
