@@ -16,22 +16,22 @@ class MealsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return title == null
-        ? content(
+        ? Content(
             meals: meals,
           )
         : Scaffold(
             appBar: AppBar(
               title: Text(title!),
             ),
-            body: content(
+            body: Content(
               meals: meals,
             ),
           );
   }
 }
 
-class content extends StatelessWidget {
-  const content({
+class Content extends StatelessWidget {
+  const Content({
     super.key,
     required this.meals,
   });
@@ -43,17 +43,15 @@ class content extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ...meals
-              .map((meal) => MealItem(
-                    meal: meal,
-                    onSelectedMeal: (Meal meal) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => MealDetailScreen(
-                                meal: meal,
-                              )));
-                    },
-                  ))
-              .toList(),
+          ...meals.map((meal) => MealItem(
+                meal: meal,
+                onSelectedMeal: (Meal meal) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx) => MealDetailScreen(
+                            meal: meal,
+                          )));
+                },
+              )),
         ],
       ),
     );
