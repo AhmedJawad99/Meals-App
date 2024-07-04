@@ -25,9 +25,7 @@ class MealDetailScreen extends ConsumerWidget {
                 final wasAdded = ref
                     .read(favouriteMealsProvider.notifier)
                     .toggleMealFavoriteStatus(meal);
-                // ref
-                //     .read(favouriteMealsProvider.notifier)
-                //     .toggleMealFavoriteStatus(meal);
+
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -38,10 +36,20 @@ class MealDetailScreen extends ConsumerWidget {
                   ),
                 );
               },
-              icon: Icon(
-                isFavorite ? Icons.star : Icons.star_border,
-                color: Colors.amber,
-              ))
+              icon: AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                transitionBuilder: (child, animation) {
+                  return RotationTransition(
+                    turns: Tween<double>(begin: 0.8, end: 1).animate(animation),
+                    child: child,
+                  );
+                },
+                child: Icon(
+                  isFavorite ? Icons.star : Icons.star_border,
+                  color: Colors.amber,
+                  key: ValueKey(isFavorite),
+                ),
+              )),
         ],
       ),
       body: SingleChildScrollView(
